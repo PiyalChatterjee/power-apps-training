@@ -1,0 +1,99 @@
+﻿Sl.No.,Component,Topic,Tasks/Assignments,Level,References,Duration (Hours)
+1,Power Apps,Types of Power Apps,> Understand the types of Power Apps & the fundamental differences,Beginner,Video,1
+2,Canvas Apps,Standard controls and properties,> Create a screen with a standard form using all input controls,Beginner,Microsoft Documentation,2
+3,Canvas Apps,Power Fx Formulas,"> Demonstrate examples for important formulas like -
+* LookUp
+* Filter
+* CountRows, CountIf
+* First, FirstN, Last, LastN
+* GroupBy
+* Distinct
+* AddColumns
+* DropColumns
+* ShowColumns
+* Concat
+* As
+* With
+* Date, DateValue, DateTimeValue, DateAdd, DateDiff
+* If, Switch
+* JSON
+* Launch
+* Match, MatchAll
+* SetFocus
+* Validate",Beginner,Microsoft Documentation,3
+4,Canvas Apps,Standard Naming Conventions,"> Go through the document & gain knowledge on the mandatory practices to be followed while naming controls, variables, screens etc.",Beginner,Neudesic Documentation,0.5
+5,Canvas Apps,UI Design,> Create UI in Canvas Apps for Leave Management System based on the Figma Design,Beginner,Figma Design,8
+6,Canvas Apps,App Theming,"> Import the msapp file with app theme configured.
+> Go through the OnAppStart & create sample screens with random controls to understand the underlying concept.",Beginner,Neudesic Documentation,2
+,,,,,MS App File,
+7,Canvas Apps,Canvas App Settings,"> Go through the various settings available for Canvas Apps & understand the features that are generally available, experimental etc.",Beginner,Blog,3
+,,,,,Microsoft Documentation,
+8,Canvas Apps,Patch,> Create a use case that shows patching records inside a ForAll loop vs patching a collection,Beginner,Blog,1
+9,Canvas Apps,Collections,> Gain hands-on knowledge in the various formulas related to collections and use it in sync with the gallery control in the next assignment.,Beginner,Video,1
+10,Canvas Apps,Gallery Control,"> Build a screen with a grid using flexible height gallery with standard features like Sort, Filter & Search",Beginner,Video 1,2
+,,,,,Video 2,
+11,Canvas Apps,Components,> Create a reusable navigation menu component,Beginner,Video,2
+12,Canvas Apps,Modern Controls,> Go through the Youtube videos & recreate the interfaces with the use of modern controls.,Beginner,Youtube Playlist,8
+13,Canvas Apps,Performance Optimization,"> Go through the Youtube videos & gain knowledge on coding practices that might affect the performance of Canvas Apps.
+> Create examples that showcases visible differences in performance.",Beginner,Video 1,2
+,,,,,Video 2,
+14,Canvas Apps,Delegation,> Create a demonstration that showcases delegable & non-delegable formulas in any 2 data sources,Intermediate,Youtube Playlist,5
+15,Canvas Apps,Concurrency,> Create a demonstration that showcases visible differences when concurrency is used in a real-life Canvas App scenario.,Intermediate,Video,1
+16,Canvas Apps,Exception Handling,> Create a use case that shows the need of exception handling in the interface & multiple ways of engaging the end users in case of such exceptions.,Intermediate,Video,2
+17,Canvas Apps,Deep Linking,> Create a use case with multiple screens & controls that will look & behave different based on parameters passed via deep linking.,Intermediate,Video,1
+18,Canvas Apps,Sharing Canvas Apps,> Go through the documentation & understand various ways in which canvas apps can be distributed to end users.,Intermediate,With Internal Users,1
+,,,,,With Guests,
+19,Canvas Apps,Offline Capability,> Create a demonstration that showcases offline capability in a real-life example.,Advanced,Video,1
+20,Canvas Apps,Monitoring Tool,"> Gain hands-on knowledge in the ways in which the tool can be used to debug canvas apps for performance improvement, defect fixing etc.",Advanced,Video,1
+21,Canvas Apps,Responsive Design,> Create a fully responsive Canvas App UI for the Leave Management System.,Advanced,Youtube Playlist,24
+,,,,,,71.5
+22,Cloud Flows,Triggers,"> Go through the documentation & understand the types of triggers that are available in Cloud flows.
+> Understand trigger settings, conditions etc.",Beginner,Microsoft Documentation,3
+23,Cloud Flows,Expressions,> Go through the Youtube video & gain hands-on knowledge in the various expressions available while working with Cloud Flows.,Beginner,Video,2
+24,Cloud Flows,Naming Conventions,"> Go through the document & gain knowledge on the mandatory practices to be followed while naming controls, variables, screens etc.",Beginner,Neudesic Documentation,0.5
+25,Cloud Flows,Data Operations,> Go through the Youtube video & gain hands-on knowledge in the actions available OOTB to handle data in Cloud Flows.,Beginner,Video,2
+26,Cloud Flows,Standard & Premium Connectors,"> Create a flow to create a dynamic PDF file using Microsoft Word template
+> Create a flow to generate a dynamic Excel file using Excel scripts",Beginner,List of Standard Connectors,7
+,,,,,List of Premium Connectors,
+27,Cloud Flows,Integration with Canvas Apps,> Create a flow to upload a file from Canvas App to SharePoint Document Library,Beginner,Video,2
+28,Cloud Flows,Response Actions,> Understand the ways in which cloud flows can be configured to respond back to a Canvas App.,Beginner,Video,1
+29,Cloud Flows,Connection References,"> Understand the logical difference between connections & connection references, and the relavance it has in solutions & deployments.",Beginner,Video,1
+30,Cloud Flows,Scope Action,> Create a demonstration that showcases end-user level error handling in a cloud flow.,Intermediate,Video,2
+31,Cloud Flows,Child Flows,"> Create a use case that shows a parent-child flow implementation where the child flow gets triggered in two different scenarios, with non-identical parameters etc.",Intermediate,Video,3
+32,Cloud Flows,Run As User,> Create a user case that showcases the run-as user concept.,Intermediate,Video,2
+,,,,,,25.5
+33,Dataverse,Column Types,> Create a sample table with the important column types & gain knowledge on the settings available for each.,Beginner,Microsoft Documentation,2
+34,Dataverse,Naming Conventions,"> Go through the blog & gain knowledge on the mandatory practices to be followed while naming tables, columns etc.",Beginner,Blog,1
+35,Dataverse,Forms & Views,> Go through the Youtube video & understand the fundamentals of forms & views for Dataverse tables and the ways to customize them.,Beginner,Video,1
+36,Dataverse,Security Roles,> Create a demonstration with multiple security roles with different levels of access to various tables & implement an example for row level security.,Intermediate,Microsoft Documentation,
+37,Dataverse,Relationships,> Create a demonstration that showcases one or more table with relationships & its usage in a Canvas App.,Beginner,Video,2
+38,Dataverse,OOTB APIs,"> Create a demonstration that showcases listing all records in a Dataverse table via Postman.
+> Create a demonstration that showcases creation of a record in a Dataverse table via Postman.",Intermediate,Video,
+39,Dataverse,Export & Import data,"> Go through the Youtube video & gain hands-on knowledge on how to export-import data into a Dataverse table.
+> Create a demonstration that showcases export-import of data with some complex data types like lookup, choice etc.",Intermediate,Video,1
+40,Dataverse,Modelling,"> Create tables for the use case - Leave Management System & build an entity-relationship diagram using any tool of choice.
+> Use the Youtube video as a reference/example.",Advanced,Video,3
+,,,,,,10
+41,Model Driven Apps,Standard Model Driven Apps,> Create a standard model-driven app for the Leave Management System where the user can view & manage data.,Intermediate,Video,3
+42,Model Driven Apps,Embed a canvas app,> Create a demonstration that showcases a scenario in which a Canvas App custom page gets embedded in a model driven app.,Intermediate,Video,2
+43,Model Driven Apps,Business Rules,> Create a demonstration that showcases a business rule in play in a Model-Driven app form.,Intermediate,Video,2
+44,Model Driven Apps,Business Process Flows,> Create a demonstration that showcases a business process flow for taking inputs from a user in a step-by-step form.,Intermediate,Video,1
+,,,,,,8
+45,Power Pages,Core Components & Design Studio,"> Go through the set of Youtube videos & gain understanding of the core components in Power Pages (Pages, Styling, Data etc).
+> Create a basic site based on available screen types & common components like the navigation, footer etc.
+> Create a screen that shows data in the form of a grid as shown in the tutorial.
+> Create the basic form & integrate with the portal to allow users to insert data into the table.",Beginner,Video 1,10
+,,,,,Video 2,
+,,,,,Video 3,
+,,,,,Video 4,
+,,,,,Video 5,
+46,Power Pages,Authentication Types,> Create a demonstration that showcases multiple authentication types in action.,Beginner,Video,2
+47,Power Pages,Templates,> Create a sample site using an available template.,Beginner,Video,1
+48,Power Pages,Liquid Template Language,"> Create a screen that shows data in a grid, by using Liquid template language instead of standard views.",Intermediate,Video,2
+49,Power Pages,Extend using JavaScript & CSS,> Create a demonstration where the site is customized using JavaScript & CSS,Intermediate,Video,2
+50,Power Pages,Multistep Forms,"> Create a demonstration that showcases an advanced form with at least 5 steps for capturing data & attachments from the user, along with the required field validations.",Advanced,Video,4
+,,,,,,21
+51,Solutions,Concept of Solutions & Deployments,"> Go through the Youtube video & understand the core concepts of solutions, environments, deployments etc in Power Platform.",Intermediate,Video,2
+,,,,,,2
+52,Final Assignment,,> Create a fully functional Leave Management System,,,32
+,,,,,,170
