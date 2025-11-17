@@ -294,6 +294,7 @@ Audit Log
 **Practical Exercise:** Build Complete Dataverse Schema
 
 1. **Create Solution Structure**
+
    ```
    Solutions to Create:
    1. "Leave Management Core" - Base tables and security
@@ -302,6 +303,7 @@ Audit Log
    ```
 
 2. **Enhanced Employee Table**
+
    ```
    1. Create table "Employee" with columns:
       - employee_id (Text, Primary)
@@ -320,6 +322,7 @@ Audit Log
    ```
 
 3. **Enhanced Leave Type Table**
+
    ```
    Create with advanced configuration:
    - maximum_days_per_year (Whole Number)
@@ -348,12 +351,13 @@ Audit Log
 **Practical Exercise:** Advanced Business Rules
 
 1. **Leave Balance Validation**
+
    ```
    Create business rule: "Validate Leave Balance"
-   
+
    Condition: Leave Request.Total Days > Leave Balance.Available Days
    Action: Show error message "Insufficient leave balance"
-   
+
    Advanced logic:
    - Check for pending requests
    - Consider carry-forward rules
@@ -361,15 +365,16 @@ Audit Log
    ```
 
 2. **Approval Workflow Rules**
+
    ```
    Create business rule: "Determine Approval Level"
-   
+
    Conditions:
    - If Total Days <= 3: Level 1 approval
-   - If Total Days > 3 AND <= 10: Level 2 approval  
+   - If Total Days > 3 AND <= 10: Level 2 approval
    - If Total Days > 10: Level 3 + HR approval
    - If Emergency leave: HR approval required
-   
+
    Actions:
    - Set approval level
    - Set next approver
@@ -377,9 +382,10 @@ Audit Log
    ```
 
 3. **Date Validation Rules**
+
    ```
    Create business rule: "Validate Dates"
-   
+
    Conditions:
    - Start date cannot be in the past
    - End date must be >= Start date
@@ -394,6 +400,7 @@ Audit Log
 1. **Create Security Roles**
 
    **Employee Role:**
+
    ```
    Table Permissions:
    - Employee: Read (Own records only)
@@ -401,7 +408,7 @@ Audit Log
    - Leave Balance: Read (Own records)
    - Leave Type: Read (Organization)
    - Holiday Calendar: Read (Organization)
-   
+
    Additional Privileges:
    - Submit leave requests
    - Cancel pending requests
@@ -409,12 +416,13 @@ Audit Log
    ```
 
    **Manager Role (inherits Employee):**
+
    ```
    Additional Table Permissions:
    - Employee: Read (Direct reports + Own)
    - Leave Request: Read, Update (Direct reports + Own)
    - Leave Calendar: Read (Team view)
-   
+
    Additional Privileges:
    - Approve/reject team requests
    - View team calendars
@@ -422,10 +430,11 @@ Audit Log
    ```
 
    **HR Administrator Role:**
+
    ```
    Table Permissions:
    - All tables: Full access (Organization level)
-   
+
    Additional Privileges:
    - Manage leave policies
    - Adjust leave balances
@@ -450,27 +459,29 @@ Audit Log
 1. **Create Specialized Views**
 
    **Employee Leave Requests View:**
+
    ```
    Columns:
    - Request ID, Leave Type, Start Date, End Date
    - Total Days, Status, Submitted Date
-   
+
    Filters:
    - Current user's requests only
    - Sort by Submitted Date (newest first)
-   
+
    Conditional formatting:
    - Green for Approved
-   - Red for Rejected  
+   - Red for Rejected
    - Yellow for Pending
    ```
 
    **Manager Approval Queue:**
+
    ```
    Columns:
    - Employee Name, Leave Type, Start Date
    - End Date, Total Days, Submitted Date
-   
+
    Filters:
    - Status = Submitted
    - Next Approver = Current User
@@ -480,12 +491,13 @@ Audit Log
 2. **Enhanced Forms**
 
    **Leave Request Form (Employee):**
+
    ```
    Sections:
    - Leave Details (Type, Dates, Reason)
    - Supporting Information (Documents, Coverage)
    - Emergency Contact Information
-   
+
    Business Process Flow:
    1. Select Leave Type
    2. Choose Dates
@@ -494,13 +506,14 @@ Audit Log
    ```
 
    **Approval Form (Manager):**
+
    ```
    Sections:
    - Request Summary (Read-only)
    - Approval Decision
    - Comments and Feedback
    - Team Impact Analysis
-   
+
    Quick Actions:
    - Approve, Reject, Request More Info
    ```
@@ -514,6 +527,7 @@ Audit Log
 **Practical Exercise:** Build Mobile App
 
 1. **App Structure Design**
+
    ```
    Screens:
    1. Home/Dashboard
@@ -522,54 +536,56 @@ Audit Log
    4. Leave Balance
    5. Team Calendar
    6. Profile/Settings
-   
+
    Navigation: Tab control at bottom
    Theme: Corporate branding with accessibility
    ```
 
 2. **Home Screen Development**
+
    ```powerapps
    // Welcome Message
    "Welcome, " & User().FullName
-   
+
    // Quick Stats Gallery
    Items: [
-       {Title: "Available Days", 
+       {Title: "Available Days",
         Value: Sum(Filter(LeaveBalances, Employee.Email = User().Email), AvailableDays),
         Icon: "CheckBadge"},
-       {Title: "Pending Requests", 
+       {Title: "Pending Requests",
         Value: CountRows(Filter(LeaveRequests, Employee.Email = User().Email && Status.Value = "Submitted")),
         Icon: "Clock"},
-       {Title: "Used This Year", 
+       {Title: "Used This Year",
         Value: Sum(Filter(LeaveBalances, Employee.Email = User().Email), UsedDays),
         Icon: "Calendar"}
    ]
-   
+
    // Recent Activities
    Items: Filter(LeaveRequests, Employee.Email = User().Email) | Sort by Submitted Date descending | FirstN(5)
    ```
 
 3. **Submit Request Screen**
+
    ```powerapps
    // Form Controls
-   
+
    Leave Type Dropdown:
    Items: Filter(LeaveTypes, ActiveStatus = true)
    DisplayFields: ["Name"]
-   
+
    Date Picker Validation:
    StartDate.Selected >= Today()
-   
+
    Total Days Calculation:
    If(EndDatePicker.SelectedDate >= StartDatePicker.SelectedDate,
       DateDiff(StartDatePicker.SelectedDate, EndDatePicker.SelectedDate, Days) + 1,
       0)
-   
+
    Balance Check:
-   LookUp(LeaveBalances, 
-          Employee.Email = User().Email && 
+   LookUp(LeaveBalances,
+          Employee.Email = User().Email &&
           LeaveType.Name = LeaveTypeDropdown.Selected.Name).AvailableDays >= TotalDaysLabel.Text
-   
+
    // Submit Button Logic
    OnSelect:
    If(BalanceCheckLabel.Text = "✓ Sufficient Balance",
@@ -590,11 +606,12 @@ Audit Log
    ```
 
 4. **My Requests Screen**
+
    ```powerapps
    // Requests Gallery
    Items: Filter(LeaveRequests, Employee.Email = User().Email)
    Sort: [SubmittedDate, Descending]
-   
+
    // Status Icons
    Switch(ThisItem.Status.Value,
       "Approved", Icon.CheckBadge,
@@ -603,8 +620,8 @@ Audit Log
       "Cancelled", Icon.Blocked,
       Icon.Help
    )
-   
-   // Status Colors  
+
+   // Status Colors
    Switch(ThisItem.Status.Value,
       "Approved", Color.Green,
       "Rejected", Color.Red,
@@ -612,10 +629,10 @@ Audit Log
       "Cancelled", Color.Gray,
       Color.Black
    )
-   
+
    // Cancel Button Logic (for pending requests only)
    Visible: ThisItem.Status.Value = "Submitted"
-   OnSelect: 
+   OnSelect:
    Patch(LeaveRequests, ThisItem, {Status: {Value: "Cancelled"}});
    Notify("Request cancelled successfully.", NotificationType.Success)
    ```
@@ -625,53 +642,56 @@ Audit Log
 **Practical Exercise:** Build Manager Interface
 
 1. **Dashboard Overview**
+
    ```powerapps
    // Team Statistics
    TeamStats: [
-       {Label: "Team Size", 
+       {Label: "Team Size",
         Value: CountRows(Filter(Employees, Manager.Email = User().Email))},
-       {Label: "Pending Approvals", 
+       {Label: "Pending Approvals",
         Value: CountRows(Filter(LeaveRequests, NextApprover.Email = User().Email && Status.Value = "Submitted"))},
-       {Label: "Team On Leave Today", 
+       {Label: "Team On Leave Today",
         Value: CountRows(Filter(LeaveCalendar, Date = Today() && Employee.Manager.Email = User().Email))}
    ]
-   
+
    // Approval Queue Gallery
-   Items: Filter(LeaveRequests, 
-                 NextApprover.Email = User().Email && 
+   Items: Filter(LeaveRequests,
+                 NextApprover.Email = User().Email &&
                  Status.Value = "Submitted")
    Sort: [TotalDays, Descending] // Prioritize longer requests
    ```
 
 2. **Team Calendar View**
+
    ```powerapps
    // Calendar Gallery (Monthly View)
-   Items: Filter(LeaveCalendar, 
+   Items: Filter(LeaveCalendar,
                  Employee.Manager.Email = User().Email &&
                  Date >= DateAdd(Today(), -Day(Today())+1, Days) &&
                  Date < DateAdd(DateAdd(Today(), -Day(Today())+1, Days), 1, Months))
-   
+
    // Calendar Cell Content
-   Text: If(CountRows(Filter(LeaveCalendar, 
-                             Date = ThisItem.Date && 
+   Text: If(CountRows(Filter(LeaveCalendar,
+                             Date = ThisItem.Date &&
                              Employee.Manager.Email = User().Email)) > 0,
             Concatenate(
                 CountRows(Filter(LeaveCalendar, Date = ThisItem.Date)),
                 " on leave"
             ),
             "")
-   
+
    // Team Member Details on Date Select
-   Items: Filter(LeaveCalendar, 
+   Items: Filter(LeaveCalendar,
                  Date = CalendarGallery.Selected.Date &&
                  Employee.Manager.Email = User().Email)
    ```
 
 3. **Approval Process**
+
    ```powerapps
    // Approval Form
    EditForm.Item: Gallery.Selected
-   
+
    // Approve Button
    OnSelect:
    Patch(LeaveRequests, Gallery.Selected, {
@@ -683,8 +703,8 @@ Audit Log
    // Trigger approval notification flow
    MyApprovalFlow.Run(Gallery.Selected.RequestID);
    Notify("Request approved successfully!", NotificationType.Success)
-   
-   // Reject Button  
+
+   // Reject Button
    OnSelect:
    If(!IsBlank(ApprovalCommentsText.Text),
       Patch(LeaveRequests, Gallery.Selected, {
@@ -704,48 +724,50 @@ Audit Log
 **Practical Exercise:** Build Analytics Dashboard
 
 1. **Executive Dashboard**
+
    ```powerapps
    // Key Metrics
    OrganizationStats: [
-       {Metric: "Total Employees", 
+       {Metric: "Total Employees",
         Value: CountRows(Filter(Employees, ActiveStatus = true)),
         Icon: "People"},
-       {Metric: "Pending Requests", 
+       {Metric: "Pending Requests",
         Value: CountRows(Filter(LeaveRequests, Status.Value = "Submitted")),
         Icon: "Clock"},
-       {Metric: "Avg Processing Time", 
-        Value: Average(Filter(LeaveRequests, 
-                             Status.Value in ["Approved", "Rejected"]), 
+       {Metric: "Avg Processing Time",
+        Value: Average(Filter(LeaveRequests,
+                             Status.Value in ["Approved", "Rejected"]),
                        DateDiff(SubmittedDate, ApprovedDate, Days)),
         Icon: "Timer"},
-       {Metric: "Leave Utilization %", 
+       {Metric: "Leave Utilization %",
         Value: Round(Sum(LeaveBalances, UsedDays) / Sum(LeaveBalances, AllocatedDays) * 100, 1),
         Icon: "Analytics"}
    ]
-   
+
    // Department Breakdown Chart
    Items: GroupBy(Filter(Employees, ActiveStatus = true), "Department", "EmployeeCount")
    ChartType: Doughnut
    ```
 
 2. **Leave Trends Analysis**
+
    ```powerapps
    // Monthly Leave Trends
    MonthlyData: GroupBy(
        AddColumns(
-           Filter(LeaveRequests, 
+           Filter(LeaveRequests,
                   Status.Value = "Approved" &&
                   StartDate >= DateAdd(Today(), -12, Months)),
-           "Month", 
+           "Month",
            Text(StartDate, "mmm yyyy")
        ),
        "Month",
        "RequestCount"
    )
-   
+
    // Leave Type Distribution
    LeaveTypeData: GroupBy(
-       Filter(LeaveRequests, 
+       Filter(LeaveRequests,
               Status.Value = "Approved" &&
               StartDate >= DateAdd(Today(), -1, Years)),
        "LeaveType",
@@ -754,21 +776,22 @@ Audit Log
    ```
 
 3. **Compliance and Reporting**
+
    ```powerapps
    // Overdue Approvals
    OverdueApprovals: Filter(LeaveRequests,
        Status.Value = "Submitted" &&
        DateDiff(SubmittedDate, Today(), Days) > 5
    )
-   
+
    // Policy Violations
    PolicyViolations: Filter(LeaveRequests,
        TotalDays > LookUp(LeaveTypes, Name = ThisRecord.LeaveType.Name, MaximumDaysPerYear) ||
        DateDiff(Today(), StartDate, Days) < LookUp(LeaveTypes, Name = ThisRecord.LeaveType.Name, AdvanceNoticeDays)
    )
-   
+
    // Export to Excel Function
-   OnSelect: 
+   OnSelect:
    Export(ReportData, "Leave_Report_" & Text(Today(), "yyyy-mm-dd"))
    ```
 
@@ -781,6 +804,7 @@ Audit Log
 **Practical Exercise:** Build Administrative Interface
 
 1. **Site Map Configuration**
+
    ```xml
    <SiteMap>
      <Area Id="LeaveManagement" Title="Leave Management">
@@ -806,6 +830,7 @@ Audit Log
 2. **Enhanced Views**
 
    **All Leave Requests (HR View):**
+
    ```xml
    Columns:
    - Employee Name (with click-to-employee)
@@ -814,7 +839,7 @@ Audit Log
    - Status (with conditional formatting)
    - Submitted Date, Approved By
    - Current Approver
-   
+
    Filters:
    - Quick filter by status
    - Date range filters
@@ -823,43 +848,45 @@ Audit Log
    ```
 
    **Pending Approvals (System View):**
-   ```xml  
+
+   ```xml
    Columns:
    - Priority (calculated based on duration + urgency)
    - Employee Name, Manager
    - Leave Type, Dates, Days
    - Days Pending, Next Approver
-   
+
    Sort: Priority descending, then Submitted Date
-   
+
    Conditional Formatting:
    - Red: > 5 days pending
-   - Yellow: 3-5 days pending  
+   - Yellow: 3-5 days pending
    - Green: < 3 days pending
    ```
 
 3. **Advanced Forms**
 
    **Employee Form (HR):**
+
    ```xml
    Header: Employee Name, Job Title, Department
-   
+
    Tabs:
    1. General Information
       - Personal details
       - Employment information
       - Contact details
-   
-   2. Leave Configuration  
+
+   2. Leave Configuration
       - Leave balances (sub-grid)
       - Approval workflow assignment
       - Special permissions
-   
+
    3. Leave History
       - All requests (sub-grid)
       - Balance adjustments
       - Audit trail
-   
+
    4. Related Information
       - Direct reports (if manager)
       - Delegations
@@ -871,21 +898,22 @@ Audit Log
 **Practical Exercise:** Executive Dashboards
 
 1. **HR Executive Dashboard**
+
    ```xml
    Components:
-   
+
    1. Key Performance Indicators:
       - Total Active Employees
-      - Pending Approval Count  
+      - Pending Approval Count
       - Average Processing Time
       - Leave Utilization Rate
-   
+
    2. Visual Charts:
       - Leave Requests by Month (Line Chart)
       - Leave Types Distribution (Pie Chart)
       - Department Utilization (Bar Chart)
       - Approval Time Trends (Area Chart)
-   
+
    3. Data Tables:
       - Overdue Approvals
       - Top Leave Requesters
@@ -894,20 +922,21 @@ Audit Log
    ```
 
 2. **Manager Dashboard**
+
    ```xml
    Components:
-   
+
    1. Team Metrics:
       - Team Size
       - Team Leave Balance
       - Requests Needing Approval
       - Team Availability
-   
+
    2. Team Calendar:
       - Visual calendar showing team leave
       - Overlap identification
       - Coverage gaps
-   
+
    3. Quick Actions:
       - Bulk approve button
       - Team report generation
@@ -919,52 +948,54 @@ Audit Log
 **Practical Exercise:** Workflow Implementation
 
 1. **Leave Request Process Flow**
+
    ```xml
    Stages:
-   
+
    1. Request Submission
       - Select leave type
-      - Choose dates  
+      - Choose dates
       - Enter reason
       - Attach documents
       - Validate: Check balance, policy compliance
-   
-   2. Manager Review  
+
+   2. Manager Review
       - Review request details
       - Check team calendar
       - Assess business impact
       - Decision: Approve/Reject/Request Info
       - Validate: Comments required for rejection
-   
+
    3. HR Review (if required)
       - Policy compliance check
       - Balance verification
       - Final approval
       - Validate: All documentation complete
-   
+
    4. Completion
       - Update leave calendar
-      - Adjust leave balance  
+      - Adjust leave balance
       - Send confirmations
       - Archive request
    ```
 
 2. **Employee Onboarding Process**
+
    ```xml
    Stages:
-   
+
    1. Employee Setup
       - Create employee record
       - Set manager relationship
       - Configure leave balances
       - Assign security roles
-   
-   2. Policy Assignment  
+
+   2. Policy Assignment
       - Assign leave policies
       - Set approval workflows
       - Configure notifications
       - Setup calendar access
-   
+
    3. System Access
       - Grant app permissions
       - Setup mobile access
@@ -981,35 +1012,36 @@ Audit Log
 **Practical Exercise:** Advanced Approval Process
 
 1. **Multi-Level Approval Flow**
+
    ```yaml
    Trigger: When Leave Request is Created/Modified
-   
+
    Condition 1: Status = "Submitted"
-   
+
    Actions:
    1. Get Employee Details
       - Lookup employee record
       - Get manager information
       - Retrieve approval workflow
-   
+
    2. Determine Approval Path
       Switch (Leave Request Total Days):
-        Case <= 3: 
+        Case <= 3:
           - Set Next Approver = Direct Manager
           - Set Approval Level = 1
         Case 4-10:
-          - Set Next Approver = Direct Manager  
+          - Set Next Approver = Direct Manager
           - Set Approval Level = 1 (will escalate to 2)
         Case > 10:
           - Set Next Approver = Direct Manager
           - Set Approval Level = 1 (will escalate to 3)
-   
+
    3. Send Approval Request
       - Create approval task
       - Send email to approver
       - Send Teams notification
       - Update request status
-   
+
    4. Handle Approval Response
       If Approved:
         - Check if additional approval needed
@@ -1022,16 +1054,17 @@ Audit Log
    ```
 
 2. **Escalation and Timeout Handling**
+
    ```yaml
    Parallel Branch 1: Normal Approval Process
-   
+
    Parallel Branch 2: Timeout Monitoring
    - Delay for X days (configurable)
    - Check if still pending
    - Send reminder to approver
    - CC manager and HR
    - Escalate to next level if no response
-   
+
    Parallel Branch 3: Emergency Override
    - Monitor for HR emergency approval
    - Bypass normal process if needed
@@ -1044,27 +1077,28 @@ Audit Log
 **Practical Exercise:** Comprehensive Notifications
 
 1. **Employee Notifications**
+
    ```yaml
    Email Template: Leave Request Submitted
    Subject: "Leave Request Submitted - {{ LeaveRequest.RequestID }}"
-   
+
    Body:
    Dear {{ Employee.FullName }},
-   
+
    Your leave request has been submitted successfully.
-   
+
    Details:
    - Request ID: {{ LeaveRequest.RequestID }}
    - Leave Type: {{ LeaveType.Name }}
    - Dates: {{ StartDate }} to {{ EndDate }}
    - Total Days: {{ TotalDays }}
    - Current Status: {{ Status }}
-   
+
    Next Steps:
    - Your request is pending approval from {{ NextApprover.FullName }}
    - You will receive updates as your request progresses
    - You can track status in the Leave Management app
-   
+
    Best regards,
    HR Team
    ```
@@ -1100,7 +1134,7 @@ Audit Log
          "url": "{{ ApprovalLink }}"
        },
        {
-         "type": "Action.OpenUrl", 
+         "type": "Action.OpenUrl",
          "title": "View Details",
          "url": "{{ RequestDetailsLink }}"
        }
@@ -1113,13 +1147,14 @@ Audit Log
 **Practical Exercise:** External System Integration
 
 1. **SharePoint Integration**
+
    ```yaml
    Flow: Sync Leave Calendar to SharePoint
-   
+
    Trigger: When Leave Request Status Changes
-   
+
    Condition: Status = "Approved"
-   
+
    Actions:
    1. Create SharePoint Calendar Event
       - Site: HR SharePoint Site
@@ -1129,7 +1164,7 @@ Audit Log
       - End Time: {{ EndDate }}
       - Category: {{ LeaveType.Name }}
       - Description: Leave request details
-   
+
    2. Update Employee Status
       - Set Out of Office in SharePoint profile
       - Update team calendar
@@ -1137,11 +1172,12 @@ Audit Log
    ```
 
 2. **Outlook Integration**
+
    ```yaml
    Flow: Create Outlook Calendar Blocks
-   
+
    Trigger: Leave Request Approved
-   
+
    Actions:
    1. Create Calendar Event (Employee)
       - Calendar: Employee's calendar
@@ -1149,13 +1185,13 @@ Audit Log
       - All Day: True/False based on half-day
       - Show As: Out of Office
       - Sensitivity: Private
-   
+
    2. Set Automatic Replies
       - Start Date: {{ StartDate }}
       - End Date: {{ EndDate }}
       - Internal Message: Custom OOO message
       - External Message: Standard OOO message
-   
+
    3. Block Calendar (Manager)
       - Create placeholder events
       - Mark as "Team Member Out"
@@ -1167,19 +1203,20 @@ Audit Log
 **Practical Exercise:** System Maintenance Flows
 
 1. **Daily Balance Updates**
+
    ```yaml
    Flow: Update Leave Balances
    Schedule: Daily at 12:01 AM
-   
+
    Actions:
    1. Get All Active Employees
-   
+
    2. For Each Employee:
       - Calculate year-to-date usage
       - Update available balances
       - Check for negative balances
       - Flag policy violations
-   
+
    3. Generate Daily Report
       - Balance summary by department
       - Policy violations
@@ -1188,21 +1225,22 @@ Audit Log
    ```
 
 2. **Cleanup and Archival**
+
    ```yaml
    Flow: Archive Old Records
    Schedule: Weekly on Sunday
-   
+
    Actions:
    1. Archive Completed Requests
       - Older than 2 years
       - Status = Approved/Rejected
       - Move to archive table
-   
+
    2. Cleanup Audit Logs
       - Older than 7 years
       - Summarize for compliance
       - Remove detailed logs
-   
+
    3. Update System Performance
       - Rebuild indexes
       - Update statistics
@@ -1218,42 +1256,44 @@ Audit Log
 **Practical Exercise:** Self-Service Portal
 
 1. **Portal Site Setup**
+
    ```yaml
    Site Configuration:
-   - Template: Employee Self Service
-   - Authentication: Azure AD B2B
-   - Theme: Corporate branding
-   - Languages: English (Primary), Spanish, French
+     - Template: Employee Self Service
+     - Authentication: Azure AD B2B
+     - Theme: Corporate branding
+     - Languages: English (Primary), Spanish, French
    ```
 
 2. **Home Page Design**
+
    ```html
    <!-- Hero Section -->
    <div class="hero-section">
-       <h1>Employee Self-Service Portal</h1>
-       <p>Manage your leave requests anytime, anywhere</p>
-       {% if user %}
-           <a href="/leave-request/" class="btn-primary">Submit Leave Request</a>
-       {% else %}
-           <a href="/signin/" class="btn-primary">Sign In</a>
-       {% endif %}
+     <h1>Employee Self-Service Portal</h1>
+     <p>Manage your leave requests anytime, anywhere</p>
+     {% if user %}
+     <a href="/leave-request/" class="btn-primary">Submit Leave Request</a>
+     {% else %}
+     <a href="/signin/" class="btn-primary">Sign In</a>
+     {% endif %}
    </div>
-   
+
    <!-- Quick Stats -->
    {% if user %}
    <div class="stats-grid">
-       <div class="stat-card">
-           <h3>{{ available_days }}</h3>
-           <p>Available Leave Days</p>
-       </div>
-       <div class="stat-card">
-           <h3>{{ pending_requests }}</h3>
-           <p>Pending Requests</p>
-       </div>
-       <div class="stat-card">
-           <h3>{{ used_days }}</h3>
-           <p>Used This Year</p>
-       </div>
+     <div class="stat-card">
+       <h3>{{ available_days }}</h3>
+       <p>Available Leave Days</p>
+     </div>
+     <div class="stat-card">
+       <h3>{{ pending_requests }}</h3>
+       <p>Pending Requests</p>
+     </div>
+     <div class="stat-card">
+       <h3>{{ used_days }}</h3>
+       <p>Used This Year</p>
+     </div>
    </div>
    {% endif %}
    ```
@@ -1262,63 +1302,86 @@ Audit Log
    ```html
    <!-- Leave Request Web Form -->
    <form id="leave-request-form">
-       <div class="form-section">
-           <h3>Leave Details</h3>
-           
-           <div class="form-group">
-               <label for="leave-type">Leave Type *</label>
-               <select id="leave-type" name="leave_type" required>
-                   {% for type in leave_types %}
-                       <option value="{{ type.id }}">{{ type.name }}</option>
-                   {% endfor %}
-               </select>
-           </div>
-           
-           <div class="form-row">
-               <div class="form-group">
-                   <label for="start-date">Start Date *</label>
-                   <input type="date" id="start-date" name="start_date" required min="{{ today }}">
-               </div>
-               <div class="form-group">
-                   <label for="end-date">End Date *</label>
-                   <input type="date" id="end-date" name="end_date" required min="{{ today }}">
-               </div>
-           </div>
-           
-           <div class="form-group">
-               <input type="checkbox" id="half-day" name="half_day">
-               <label for="half-day">Half Day</label>
-           </div>
-           
-           <div class="form-group">
-               <label for="reason">Reason</label>
-               <textarea id="reason" name="reason" rows="3"></textarea>
-           </div>
+     <div class="form-section">
+       <h3>Leave Details</h3>
+
+       <div class="form-group">
+         <label for="leave-type">Leave Type *</label>
+         <select id="leave-type" name="leave_type" required>
+           {% for type in leave_types %}
+           <option value="{{ type.id }}">{{ type.name }}</option>
+           {% endfor %}
+         </select>
        </div>
-       
-       <div class="form-section">
-           <h3>Additional Information</h3>
-           
-           <div class="form-group">
-               <label for="emergency-contact">Emergency Contact During Leave</label>
-               <input type="text" id="emergency-contact" name="emergency_contact">
-           </div>
-           
-           <div class="form-group">
-               <label for="coverage">Work Coverage Arrangements</label>
-               <textarea id="coverage" name="coverage_arrangements" rows="3"></textarea>
-           </div>
-           
-           <div class="form-group">
-               <label for="documents">Supporting Documents</label>
-               <input type="file" id="documents" name="supporting_documents" multiple>
-           </div>
+
+       <div class="form-row">
+         <div class="form-group">
+           <label for="start-date">Start Date *</label>
+           <input
+             type="date"
+             id="start-date"
+             name="start_date"
+             required
+             min="{{ today }}"
+           />
+         </div>
+         <div class="form-group">
+           <label for="end-date">End Date *</label>
+           <input
+             type="date"
+             id="end-date"
+             name="end_date"
+             required
+             min="{{ today }}"
+           />
+         </div>
        </div>
-       
-       <div class="form-actions">
-           <button type="submit" class="btn-primary">Submit Request</button>
-           <button type="button" class="btn-secondary" onclick="history.back()">Cancel</button>
+
+       <div class="form-group">
+         <input type="checkbox" id="half-day" name="half_day" />
+         <label for="half-day">Half Day</label>
        </div>
+
+       <div class="form-group">
+         <label for="reason">Reason</label>
+         <textarea id="reason" name="reason" rows="3"></textarea>
+       </div>
+     </div>
+
+     <div class="form-section">
+       <h3>Additional Information</h3>
+
+       <div class="form-group">
+         <label for="emergency-contact">Emergency Contact During Leave</label>
+         <input type="text" id="emergency-contact" name="emergency_contact" />
+       </div>
+
+       <div class="form-group">
+         <label for="coverage">Work Coverage Arrangements</label>
+         <textarea
+           id="coverage"
+           name="coverage_arrangements"
+           rows="3"
+         ></textarea>
+       </div>
+
+       <div class="form-group">
+         <label for="documents">Supporting Documents</label>
+         <input
+           type="file"
+           id="documents"
+           name="supporting_documents"
+           multiple
+         />
+       </div>
+     </div>
+
+     <div class="form-actions">
+       <button type="submit" class="btn-primary">Submit Request</button>
+       <button type="button" class="btn-secondary" onclick="history.back()">
+         Cancel
+       </button>
+     </div>
    </form>
    ```
 
@@ -1327,58 +1390,82 @@ Audit Log
 **Practical Exercise:** Interactive Status Portal
 
 1. **My Requests Page**
+
    ```html
    <!-- Requests List -->
    <div class="requests-container">
-       <h2>My Leave Requests</h2>
-       
-       <!-- Filter Controls -->
-       <div class="filters">
-           <select id="status-filter">
-               <option value="">All Statuses</option>
-               <option value="Submitted">Pending</option>
-               <option value="Approved">Approved</option>
-               <option value="Rejected">Rejected</option>
-           </select>
-           
-           <input type="date" id="date-from" placeholder="From Date">
-           <input type="date" id="date-to" placeholder="To Date">
-           
-           <button onclick="filterRequests()">Filter</button>
+     <h2>My Leave Requests</h2>
+
+     <!-- Filter Controls -->
+     <div class="filters">
+       <select id="status-filter">
+         <option value="">All Statuses</option>
+         <option value="Submitted">Pending</option>
+         <option value="Approved">Approved</option>
+         <option value="Rejected">Rejected</option>
+       </select>
+
+       <input type="date" id="date-from" placeholder="From Date" />
+       <input type="date" id="date-to" placeholder="To Date" />
+
+       <button onclick="filterRequests()">Filter</button>
+     </div>
+
+     <!-- Requests Table -->
+     <div class="requests-grid">
+       {% for request in user_requests %}
+       <div class="request-card status-{{ request.status | lower }}">
+         <div class="request-header">
+           <span class="request-id">#{{ request.request_id }}</span>
+           <span class="status-badge {{ request.status | lower }}"
+             >{{ request.status }}</span
+           >
+         </div>
+
+         <div class="request-details">
+           <h4>{{ request.leave_type.name }}</h4>
+           <p>
+             <strong>Dates:</strong> {{ request.start_date | date: "M/d/yyyy" }}
+             - {{ request.end_date | date: "M/d/yyyy" }}
+           </p>
+           <p><strong>Days:</strong> {{ request.total_days }}</p>
+           <p>
+             <strong>Submitted:</strong> {{ request.submitted_date | date:
+             "M/d/yyyy" }}
+           </p>
+
+           {% if request.status == "Submitted" %}
+           <p>
+             <strong>Next Approver:</strong> {{ request.next_approver.full_name
+             }}
+           </p>
+           {% elsif request.status == "Approved" %}
+           <p>
+             <strong>Approved by:</strong> {{ request.approved_by.full_name }}
+           </p>
+           <p>
+             <strong>Approved on:</strong> {{ request.approved_date | date:
+             "M/d/yyyy" }}
+           </p>
+           {% endif %}
+         </div>
+
+         <div class="request-actions">
+           <a href="/request-details/{{ request.id }}/" class="btn-link"
+             >View Details</a
+           >
+           {% if request.status == "Submitted" %}
+           <button
+             onclick="cancelRequest('{{ request.id }}')"
+             class="btn-danger"
+           >
+             Cancel
+           </button>
+           {% endif %}
+         </div>
        </div>
-       
-       <!-- Requests Table -->
-       <div class="requests-grid">
-           {% for request in user_requests %}
-           <div class="request-card status-{{ request.status | lower }}">
-               <div class="request-header">
-                   <span class="request-id">#{{ request.request_id }}</span>
-                   <span class="status-badge {{ request.status | lower }}">{{ request.status }}</span>
-               </div>
-               
-               <div class="request-details">
-                   <h4>{{ request.leave_type.name }}</h4>
-                   <p><strong>Dates:</strong> {{ request.start_date | date: "M/d/yyyy" }} - {{ request.end_date | date: "M/d/yyyy" }}</p>
-                   <p><strong>Days:</strong> {{ request.total_days }}</p>
-                   <p><strong>Submitted:</strong> {{ request.submitted_date | date: "M/d/yyyy" }}</p>
-                   
-                   {% if request.status == "Submitted" %}
-                       <p><strong>Next Approver:</strong> {{ request.next_approver.full_name }}</p>
-                   {% elsif request.status == "Approved" %}
-                       <p><strong>Approved by:</strong> {{ request.approved_by.full_name }}</p>
-                       <p><strong>Approved on:</strong> {{ request.approved_date | date: "M/d/yyyy" }}</p>
-                   {% endif %}
-               </div>
-               
-               <div class="request-actions">
-                   <a href="/request-details/{{ request.id }}/" class="btn-link">View Details</a>
-                   {% if request.status == "Submitted" %}
-                       <button onclick="cancelRequest('{{ request.id }}')" class="btn-danger">Cancel</button>
-                   {% endif %}
-               </div>
-           </div>
-           {% endfor %}
-       </div>
+       {% endfor %}
+     </div>
    </div>
    ```
 
@@ -1386,44 +1473,53 @@ Audit Log
    ```html
    <!-- Balance Overview -->
    <div class="balance-dashboard">
-       <h2>Leave Balance Summary</h2>
-       
-       <div class="balance-grid">
-           {% for balance in user_balances %}
-           <div class="balance-card">
-               <div class="balance-header" style="border-left-color: {{ balance.leave_type.color_code }}">
-                   <h3>{{ balance.leave_type.name }}</h3>
-               </div>
-               
-               <div class="balance-stats">
-                   <div class="stat">
-                       <span class="label">Allocated</span>
-                       <span class="value">{{ balance.allocated_days }}</span>
-                   </div>
-                   <div class="stat">
-                       <span class="label">Used</span>
-                       <span class="value">{{ balance.used_days }}</span>
-                   </div>
-                   <div class="stat">
-                       <span class="label">Pending</span>
-                       <span class="value">{{ balance.pending_days }}</span>
-                   </div>
-                   <div class="stat available">
-                       <span class="label">Available</span>
-                       <span class="value">{{ balance.available_days }}</span>
-                   </div>
-               </div>
-               
-               <div class="balance-progress">
-                   <div class="progress-bar">
-                       <div class="progress-used" style="width: {{ balance.used_percentage }}%"></div>
-                       <div class="progress-pending" style="width: {{ balance.pending_percentage }}%"></div>
-                   </div>
-                   <small>{{ balance.utilization_percentage }}% utilized</small>
-               </div>
+     <h2>Leave Balance Summary</h2>
+
+     <div class="balance-grid">
+       {% for balance in user_balances %}
+       <div class="balance-card">
+         <div
+           class="balance-header"
+           style="border-left-color: {{ balance.leave_type.color_code }}"
+         >
+           <h3>{{ balance.leave_type.name }}</h3>
+         </div>
+
+         <div class="balance-stats">
+           <div class="stat">
+             <span class="label">Allocated</span>
+             <span class="value">{{ balance.allocated_days }}</span>
            </div>
-           {% endfor %}
+           <div class="stat">
+             <span class="label">Used</span>
+             <span class="value">{{ balance.used_days }}</span>
+           </div>
+           <div class="stat">
+             <span class="label">Pending</span>
+             <span class="value">{{ balance.pending_days }}</span>
+           </div>
+           <div class="stat available">
+             <span class="label">Available</span>
+             <span class="value">{{ balance.available_days }}</span>
+           </div>
+         </div>
+
+         <div class="balance-progress">
+           <div class="progress-bar">
+             <div
+               class="progress-used"
+               style="width: {{ balance.used_percentage }}%"
+             ></div>
+             <div
+               class="progress-pending"
+               style="width: {{ balance.pending_percentage }}%"
+             ></div>
+           </div>
+           <small>{{ balance.utilization_percentage }}% utilized</small>
+         </div>
        </div>
+       {% endfor %}
+     </div>
    </div>
    ```
 
@@ -1436,28 +1532,29 @@ Audit Log
 **Practical Exercise:** Test Plan Development
 
 1. **Unit Testing**
+
    ```yaml
    Canvas Apps Testing:
-   
+
    Test Cases:
    1. Form Validation
       - Required field validation
-      - Date range validation  
+      - Date range validation
       - Balance checking
       - File upload limits
-   
+
    2. Data Operations
       - Create leave request
       - Update request status
       - Delete draft requests
       - Filter and search
-   
+
    3. Business Logic
       - Balance calculations
       - Approval routing
       - Date calculations
       - Policy enforcement
-   
+
    Test Execution:
    - Use Power Apps Test Studio
    - Record test scenarios
@@ -1466,28 +1563,29 @@ Audit Log
    ```
 
 2. **Integration Testing**
+
    ```yaml
    Flow Testing:
-   
+
    Test Scenarios:
    1. Approval Workflow
       - Single level approval
       - Multi-level approval
       - Rejection handling
       - Timeout scenarios
-   
+
    2. Notification System
       - Email delivery
       - Teams notifications
       - Mobile push notifications
       - Escalation alerts
-   
+
    3. External Integrations
       - SharePoint calendar sync
       - Outlook calendar blocks
       - Teams presence updates
       - Document management
-   
+
    Test Tools:
    - Flow test runs
    - Manual trigger testing
@@ -1500,53 +1598,55 @@ Audit Log
 **Practical Exercise:** UAT Process
 
 1. **Test User Groups**
+
    ```yaml
    Employee Test Group:
-   - 10 employees from different departments
-   - Mix of technical and non-technical users
-   - Include mobile-only users
-   
+     - 10 employees from different departments
+     - Mix of technical and non-technical users
+     - Include mobile-only users
+
    Manager Test Group:
-   - 5 managers with varying team sizes
-   - Include both technical and business managers
-   - Test delegation scenarios
-   
+     - 5 managers with varying team sizes
+     - Include both technical and business managers
+     - Test delegation scenarios
+
    HR Test Group:
-   - 3 HR administrators
-   - Include policy configuration testing
-   - Test reporting and analytics
+     - 3 HR administrators
+     - Include policy configuration testing
+     - Test reporting and analytics
    ```
 
 2. **Test Scenarios**
+
    ```yaml
    Employee Scenarios:
    1. New User Onboarding
       - First-time app access
       - Profile setup
       - Initial leave request
-   
+
    2. Routine Operations
       - Submit various leave types
       - Check balance and status
       - Cancel pending requests
-   
+
    3. Edge Cases
       - Insufficient balance
       - Overlapping requests
       - Emergency leave
       - Half-day requests
-   
+
    Manager Scenarios:
    1. Approval Process
       - Review and approve requests
       - Bulk approval operations
       - Rejection with comments
-   
+
    2. Team Management
       - View team calendar
       - Identify coverage gaps
       - Generate team reports
-   
+
    3. Delegation
       - Setup approval delegation
       - Emergency approvals
@@ -1558,35 +1658,37 @@ Audit Log
 **Practical Exercise:** Load and Performance Testing
 
 1. **Performance Metrics**
+
    ```yaml
    Target Metrics:
-   - Page load time: < 3 seconds
-   - Form submission: < 2 seconds
-   - Search results: < 1 second
-   - Report generation: < 10 seconds
-   - Concurrent users: 500+
-   - Peak load handling: 1000+ users
+     - Page load time: < 3 seconds
+     - Form submission: < 2 seconds
+     - Search results: < 1 second
+     - Report generation: < 10 seconds
+     - Concurrent users: 500+
+     - Peak load handling: 1000+ users
    ```
 
 2. **Load Testing**
+
    ```yaml
    Test Scenarios:
-   
+
    1. Normal Load
       - 100 concurrent users
       - Mixed operations (70% read, 30% write)
       - 1-hour duration
-   
+
    2. Peak Load
       - 500 concurrent users
       - Heavy submission period (month-end)
       - 2-hour duration
-   
+
    3. Stress Test
       - 1000+ concurrent users
       - System breaking point
       - Recovery testing
-   
+
    Tools:
    - Application Insights
    - Power Platform Analytics
@@ -1599,6 +1701,7 @@ Audit Log
 **Practical Exercise:** Go-Live Process
 
 1. **Deployment Checklist**
+
    ```yaml
    Pre-Deployment:
    ✅ All testing completed
@@ -1608,7 +1711,7 @@ Audit Log
    ✅ Rollback plan prepared
    ✅ Support team briefed
    ✅ Performance monitoring setup
-   
+
    Deployment Steps:
    1. Deploy solutions to production
    2. Configure environment variables
@@ -1621,21 +1724,22 @@ Audit Log
    ```
 
 2. **Go-Live Support**
+
    ```yaml
    Support Strategy:
-   
+
    Week 1: Intensive Support
    - Dedicated support team
    - Real-time issue resolution
    - User assistance and training
    - Performance monitoring
-   
+
    Week 2-4: Active Monitoring
    - Daily health checks
    - User feedback collection
    - Performance optimization
    - Issue tracking and resolution
-   
+
    Month 2+: Standard Support
    - Regular maintenance windows
    - Monthly performance reviews
@@ -1650,19 +1754,22 @@ Audit Log
 ### Technical Deliverables
 
 1. **Complete Solution Package**
+
    - Core solution with all components
    - Apps solution with applications
    - Configuration solution with settings
    - Documentation and deployment guides
 
 2. **Applications**
+
    - Employee Leave Request App (Canvas)
-   - Manager Dashboard App (Canvas)  
+   - Manager Dashboard App (Canvas)
    - HR Analytics App (Canvas)
    - HR Administration App (Model-driven)
    - External Employee Portal (Power Pages)
 
 3. **Automation**
+
    - Multi-level approval workflows
    - Notification system
    - Integration flows
@@ -1677,6 +1784,7 @@ Audit Log
 ### Documentation Deliverables
 
 1. **User Documentation**
+
    - Employee user guide
    - Manager user guide
    - HR administrator guide
@@ -1684,6 +1792,7 @@ Audit Log
    - Portal user guide
 
 2. **Technical Documentation**
+
    - Architecture document
    - Solution design document
    - Integration specifications
@@ -1700,6 +1809,7 @@ Audit Log
 ### Training Materials
 
 1. **End User Training**
+
    - Video tutorials
    - Quick reference cards
    - Interactive training modules
@@ -1720,18 +1830,21 @@ Audit Log
 **Practical Project Evaluation (100 points):**
 
 1. **Technical Implementation (40 points)**
+
    - Solution architecture and design
    - Code quality and best practices
    - Integration completeness
    - Performance and scalability
 
 2. **User Experience (25 points)**
+
    - Interface design and usability
    - Mobile responsiveness
    - Accessibility compliance
    - User workflow efficiency
 
 3. **Business Value (20 points)**
+
    - Requirements compliance
    - Process improvement
    - Automation effectiveness
@@ -1764,6 +1877,7 @@ To receive the **Power Platform Professional Certificate**, you must:
 **Total Training Hours: 168.5 hours**
 
 **Skills Mastered:**
+
 - Canvas Apps development (advanced)
 - Model-driven Apps creation
 - Power Automate workflow design
@@ -1778,6 +1892,7 @@ To receive the **Power Platform Professional Certificate**, you must:
 ### Real-World Impact
 
 Your Leave Management System provides:
+
 - **Employee Self-Service**: Reduced HR workload by 60%
 - **Automated Approvals**: 90% faster processing time
 - **Mobile Access**: 24/7 availability for all users
@@ -1788,6 +1903,7 @@ Your Leave Management System provides:
 ### Career Opportunities
 
 With these skills, you're qualified for roles such as:
+
 - Power Platform Developer
 - Business Applications Analyst
 - Digital Transformation Consultant
@@ -1798,6 +1914,7 @@ With these skills, you're qualified for roles such as:
 ### Continued Learning
 
 **Next Steps:**
+
 - Microsoft Power Platform certifications
 - Advanced Azure integration
 - AI Builder and cognitive services
@@ -1808,4 +1925,4 @@ With these skills, you're qualified for roles such as:
 
 **🌟 You are now a Power Platform Professional! 🌟**
 
-*Continue building amazing solutions that transform businesses and empower users worldwide.*
+_Continue building amazing solutions that transform businesses and empower users worldwide._
