@@ -209,7 +209,7 @@ Example:
 Add Spinner or Loading Icon:
 Control: Icon (icon_loading)
 Icon: Icon.Sync
-Color: RGBA(0, 120, 212, 1)
+Color: RGBA(73, 76, 84, 1)  // Modern primary color
 Visible: varFlowRunning
 X: (Parent.Width - Self.Width) / 2
 Y: (Parent.Height - Self.Height) / 2

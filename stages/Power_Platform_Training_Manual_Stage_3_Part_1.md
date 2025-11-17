@@ -986,7 +986,7 @@ Set(
     varTheme,
     {
         Colors: {
-            Primary: RGBA(0, 120, 212, 1),
+            Primary: RGBA(73, 76, 84, 1),           // Modern blue-gray
             // ... rest of theme
         }
     }

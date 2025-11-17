@@ -77,42 +77,45 @@ Before building screens, set up theme colors as global variables.
 // ===================================
 // THEME COLORS - Based on Figma Design
 // ===================================
-Set(varColorPrimary, RGBA(0, 120, 212, 1));           // Primary Blue
-Set(varColorPrimaryDark, RGBA(0, 90, 158, 1));        // Darker Blue for hover
-Set(varColorPrimaryLight, RGBA(232, 244, 253, 1));    // Light Blue for backgrounds
+Set(varColorPrimary, RGBA(73, 76, 84, 1));            // Primary Dark Blue-Gray #494c54
+Set(varColorPrimaryDark, RGBA(56, 58, 64, 1));        // Darker version for hover
+Set(varColorPrimaryLight, RGBA(240, 241, 242, 1));    // Light gray for backgrounds
 
-Set(varColorSecondary, RGBA(16, 124, 16, 1));         // Green for success
-Set(varColorWarning, RGBA(255, 185, 0, 1));           // Orange for warnings
-Set(varColorDanger, RGBA(196, 49, 75, 1));            // Red for errors
-Set(varColorInfo, RGBA(0, 188, 242, 1));              // Cyan for info
+Set(varColorSecondary, RGBA(34, 139, 34, 1));         // Green for success #228b22
+Set(varColorWarning, RGBA(255, 193, 7, 1));           // Amber for warnings #ffc107
+Set(varColorDanger, RGBA(220, 53, 69, 1));            // Red for errors #dc3545
+Set(varColorInfo, RGBA(13, 110, 253, 1));             // Blue for info #0d6efd
 
-Set(varColorBackground, RGBA(250, 250, 250, 1));      // Light gray background
-Set(varColorSurface, RGBA(255, 255, 255, 1));         // White surface
-Set(varColorBorder, RGBA(225, 223, 221, 1));          // Light border
+Set(varColorBackground, RGBA(248, 249, 250, 1));      // Light background #f8f9fa
+Set(varColorSurface, RGBA(255, 255, 255, 1));         // Pure white surface
+Set(varColorBorder, RGBA(233, 233, 235, 1));          // Light border #e9e9eb
 
-Set(varColorTextPrimary, RGBA(50, 49, 48, 1));        // Dark text
-Set(varColorTextSecondary, RGBA(96, 94, 92, 1));      // Gray text
-Set(varColorTextDisabled, RGBA(200, 198, 196, 1));    // Disabled text
+Set(varColorTextPrimary, RGBA(24, 24, 24, 1));        // Primary dark text #181818
+Set(varColorTextSecondary, RGBA(69, 71, 77, 1));      // Secondary gray text #45474d
+Set(varColorTextDisabled, RGBA(156, 163, 175, 1));    // Disabled text #9ca3af
 
-// Typography
-Set(varFontSizeHeading1, 32);
-Set(varFontSizeHeading2, 24);
-Set(varFontSizeHeading3, 18);
-Set(varFontSizeBody, 14);
-Set(varFontSizeSmall, 12);
+// Typography - Based on Figma Design System
+Set(varFontSizeHeading1, 30);                         // Large numbers/stats
+Set(varFontSizeHeading2, 20);                         // Section headings
+Set(varFontSizeHeading3, 16);                         // Card titles
+Set(varFontSizeBody, 14);                             // Body text
+Set(varFontSizeSmall, 12);                            // Helper text
+Set(varFontFamily, Font.'Segoe UI');                  // Primary font
 
-// Spacing System (8px base)
+// Spacing System (12px base - from Figma)
 Set(varSpacingXS, 4);
 Set(varSpacingS, 8);
-Set(varSpacingM, 16);
-Set(varSpacingL, 24);
-Set(varSpacingXL, 32);
-Set(varSpacingXXL, 48);
+Set(varSpacingM, 12);                                 // Base unit from Figma
+Set(varSpacingL, 16);
+Set(varSpacingXL, 24);
+Set(varSpacingXXL, 32);
+Set(varSpacingXXXL, 40);
 
-// Border Radius
+// Border Radius - Clean Modern Style
 Set(varBorderRadiusSmall, 4);
-Set(varBorderRadiusMedium, 8);
+Set(varBorderRadiusMedium, 8);                        // Standard from Figma
 Set(varBorderRadiusLarge, 12);
+Set(varBorderRadiusXLarge, 16);
 
 // Shadow (simulate with borders for now)
 Set(varShadowColor, RGBA(0, 0, 0, 0.1));
@@ -140,9 +143,14 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
      - X: `0`
      - Y: `0`
      - Width: `Parent.Width`
-     - Height: `80`
-     - Fill: `varColorPrimary`
-     - BorderThickness: `0`
+     - Height: `56` // Clean height from Figma
+     - Fill: `varColorSurface` // Clean white header
+     - BorderThickness: `1`
+     - BorderColor: `varColorBorder`
+     - RadiusTopLeft: `0`
+     - RadiusTopRight: `0`
+     - RadiusBottomLeft: `0`
+     - RadiusBottomRight: `0`
 
 2. **Add Company Logo:**
 
@@ -166,9 +174,9 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
      - Y: `(recHeaderBackground.Height - Self.Height) / 2`
      - Width: `400`
      - Height: `recHeaderBackground.Height`
-     - Color: `varColorSurface`
+     - Color: `varColorTextPrimary` // Dark text on white
      - Size: `varFontSizeHeading2`
-     - Font: `Font.'Segoe UI'`
+     - Font: `varFontFamily`
      - FontWeight: `FontWeight.Semibold`
      - Align: `Align.Left`
      - VerticalAlign: `VerticalAlign.Middle`
@@ -178,12 +186,13 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
    - Rename: `lblUserName`
    - **Properties:**
      - Text: `"Welcome, " & User().FullName`
-     - X: `Parent.Width - Self.Width - varSpacingL`
+     - X: `Parent.Width - Self.Width - varSpacingXL`
      - Y: `(recHeaderBackground.Height - Self.Height) / 2`
      - Width: `300`
      - Height: `recHeaderBackground.Height`
-     - Color: `varColorSurface`
+     - Color: `varColorTextSecondary` // Secondary text color
      - Size: `varFontSizeBody`
+     - Font: `varFontFamily`
      - Align: `Align.Right`
      - VerticalAlign: `VerticalAlign.Middle`
 
@@ -211,7 +220,7 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
      - X: `recStatsContainer.X`
      - Y: `recStatsContainer.Y`
      - Width: `(recStatsContainer.Width - (varSpacingM * 2)) / 3`
-     - Height: `140`
+     - Height: `96` // Height from Figma design
      - Fill: `varColorSurface`
      - BorderColor: `varColorBorder`
      - BorderThickness: `1`
@@ -241,10 +250,11 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
      - X: `recCardTotalLeave.X + varSpacingM`
      - Y: `icoTotalLeave.Y + icoTotalLeave.Height + varSpacingS`
      - Width: `recCardTotalLeave.Width - (varSpacingM * 2)`
-     - Height: `40`
+     - Height: `30` // Adjusted for cleaner look
      - Color: `varColorTextPrimary`
      - Size: `varFontSizeHeading1`
-     - FontWeight: `FontWeight.Bold`
+     - Font: `varFontFamily`
+     - FontWeight: `FontWeight.Semibold` // Semibold instead of Bold
      - Align: `Align.Left`
 
    **Description Label:**
@@ -256,9 +266,11 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
      - X: `recCardTotalLeave.X + varSpacingM`
      - Y: `lblTotalLeaveValue.Y + lblTotalLeaveValue.Height`
      - Width: `recCardTotalLeave.Width - (varSpacingM * 2)`
-     - Height: `30`
+     - Height: `24` // Clean height from Figma
      - Color: `varColorTextSecondary`
      - Size: `varFontSizeBody`
+     - Font: `varFontFamily`
+     - FontWeight: `FontWeight.Normal` // Regular weight
      - Align: `Align.Left`
 
 3. **Create Available Leave Card (Card 2):**
@@ -307,17 +319,20 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
      - Text: `"+ New Leave Request"`
      - X: `varSpacingXL`
      - Y: `lblQuickActions.Y + lblQuickActions.Height + varSpacingM`
-     - Width: `250`
-     - Height: `50`
+     - Width: `200` // Cleaner width
+     - Height: `40` // More modern height
      - Fill: `varColorPrimary`
      - HoverFill: `varColorPrimaryDark`
+     - PressedFill: `varColorPrimaryDark`
      - Color: `varColorSurface`
      - Size: `varFontSizeBody`
-     - FontWeight: `FontWeight.Semibold`
-     - RadiusTopLeft: `varBorderRadiusSmall`
-     - RadiusTopRight: `varBorderRadiusSmall`
-     - RadiusBottomLeft: `varBorderRadiusSmall`
-     - RadiusBottomRight: `varBorderRadiusSmall`
+     - Font: `varFontFamily`
+     - FontWeight: `FontWeight.Medium` // Medium weight
+     - RadiusTopLeft: `varBorderRadiusMedium`
+     - RadiusTopRight: `varBorderRadiusMedium`
+     - RadiusBottomLeft: `varBorderRadiusMedium`
+     - RadiusBottomRight: `varBorderRadiusMedium`
+     - BorderThickness: `0`
      - OnSelect: `Navigate(scrLeaveRequest, ScreenTransition.Fade)` (we'll create this screen next)
 
 3. **View History Button:**
@@ -327,20 +342,21 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
      - Text: `"View Leave History"`
      - X: `btnNewLeaveRequest.X + btnNewLeaveRequest.Width + varSpacingM`
      - Y: `btnNewLeaveRequest.Y`
-     - Width: `250`
-     - Height: `50`
+     - Width: `180` // Cleaner width
+     - Height: `40` // Match primary button
      - Fill: `varColorSurface`
      - HoverFill: `varColorPrimaryLight`
      - PressedFill: `varColorPrimaryLight`
      - Color: `varColorPrimary`
-     - BorderColor: `varColorPrimary`
-     - BorderThickness: `2`
+     - BorderColor: `varColorBorder` // Subtle border
+     - BorderThickness: `1` // Thinner border
      - Size: `varFontSizeBody`
-     - FontWeight: `FontWeight.Semibold`
-     - RadiusTopLeft: `varBorderRadiusSmall`
-     - RadiusTopRight: `varBorderRadiusSmall`
-     - RadiusBottomLeft: `varBorderRadiusSmall`
-     - RadiusBottomRight: `varBorderRadiusSmall`
+     - Font: `varFontFamily`
+     - FontWeight: `FontWeight.Medium` // Medium weight
+     - RadiusTopLeft: `varBorderRadiusMedium`
+     - RadiusTopRight: `varBorderRadiusMedium`
+     - RadiusBottomLeft: `varBorderRadiusMedium`
+     - RadiusBottomRight: `varBorderRadiusMedium`
 
 **D. Create Recent Leave Requests Section**
 
@@ -477,34 +493,19 @@ Set(varShadowColor, RGBA(0, 0, 0, 0.1));
 
    - Insert → **"Label"**
    - Rename: `lblStatus`
-   - **Properties:**
-     - Text: `ThisItem.Status`
-     - X: `Parent.TemplateWidth - Self.Width - varSpacingM`
-     - Y: `varSpacingM`
-     - Width: `100`
-     - Height: `30`
-     - Color: `Switch(
+   - **Properties:** - Text: `ThisItem.Status` - X: `Parent.TemplateWidth - Self.Width - varSpacingM` - Y: `varSpacingM` - Width: `100` - Height: `30` - Color: `Switch(
     ThisItem.Status,
     "Approved", varColorSecondary,
     "Pending", varColorWarning,
     "Rejected", varColorDanger,
     varColorTextSecondary
-)`
-     - Fill: `Switch(
+)` - Fill: `Switch(
     ThisItem.Status,
     "Approved", ColorFade(varColorSecondary, 0.9),
     "Pending", ColorFade(varColorWarning, 0.9),
     "Rejected", ColorFade(varColorDanger, 0.9),
     varColorBackground
-)`
-     - Size: `varFontSizeSmall`
-     - FontWeight: `FontWeight.Semibold`
-     - Align: `Align.Center`
-     - VerticalAlign: `VerticalAlign.Middle`
-     - RadiusTopLeft: `varBorderRadiusSmall`
-     - RadiusTopRight: `varBorderRadiusSmall`
-     - RadiusBottomLeft: `varBorderRadiusSmall`
-     - RadiusBottomRight: `varBorderRadiusSmall`
+)` - Size: `varFontSizeSmall` - FontWeight: `FontWeight.Semibold` - Align: `Align.Center` - VerticalAlign: `VerticalAlign.Middle` - RadiusTopLeft: `varBorderRadiusSmall` - RadiusTopRight: `varBorderRadiusSmall` - RadiusBottomLeft: `varBorderRadiusSmall` - RadiusBottomRight: `varBorderRadiusSmall`
 
    **Reason Label:**
 
@@ -864,67 +865,72 @@ Make sure ALL similar elements use the same properties:
 Set(
     varTheme,
     {
-        // Color Palette
+        // Color Palette - Modern Figma Design System
         Colors: {
-            Primary: RGBA(0, 120, 212, 1),
-            PrimaryDark: RGBA(0, 90, 158, 1),
-            PrimaryLight: RGBA(232, 244, 253, 1),
-            Secondary: RGBA(16, 124, 16, 1),
-            Success: RGBA(16, 124, 16, 1),
-            Warning: RGBA(255, 185, 0, 1),
-            Danger: RGBA(196, 49, 75, 1),
-            Info: RGBA(0, 188, 242, 1),
-            Background: RGBA(250, 250, 250, 1),
-            Surface: RGBA(255, 255, 255, 1),
-            Border: RGBA(225, 223, 221, 1),
-            TextPrimary: RGBA(50, 49, 48, 1),
-            TextSecondary: RGBA(96, 94, 92, 1),
-            TextDisabled: RGBA(200, 198, 196, 1)
+            Primary: RGBA(73, 76, 84, 1),             // #494c54 - Modern dark blue-gray
+            PrimaryDark: RGBA(56, 58, 64, 1),         // Darker version for interactions
+            PrimaryLight: RGBA(240, 241, 242, 1),     // Light background variant
+            Secondary: RGBA(34, 139, 34, 1),          // Success green
+            Success: RGBA(34, 139, 34, 1),            // #228b22 - Green
+            Warning: RGBA(255, 193, 7, 1),            // #ffc107 - Amber
+            Danger: RGBA(220, 53, 69, 1),             // #dc3545 - Red
+            Info: RGBA(13, 110, 253, 1),              // #0d6efd - Blue
+            Background: RGBA(248, 249, 250, 1),       // #f8f9fa - Clean light background
+            Surface: RGBA(255, 255, 255, 1),          // Pure white
+            Border: RGBA(233, 233, 235, 1),           // #e9e9eb - Clean light border
+            Shadow: RGBA(0, 0, 0, 0.08),              // Subtle shadow
+            TextPrimary: RGBA(24, 24, 24, 1),         // #181818 - Primary dark text
+            TextSecondary: RGBA(69, 71, 77, 1),       // #45474d - Secondary text
+            TextDisabled: RGBA(156, 163, 175, 1),     // #9ca3af - Disabled text
+            White: RGBA(255, 255, 255, 1),
+            Black: RGBA(0, 0, 0, 1)
         },
 
-        // Typography
+        // Typography - Clean and Modern
         Typography: {
             FontFamily: Font.'Segoe UI',
-            Heading1: 32,
-            Heading2: 24,
-            Heading3: 18,
-            Heading4: 16,
-            Body: 14,
-            Small: 12,
-            Tiny: 10
+            Heading1: 30,                              // Large stats/numbers
+            Heading2: 20,                              // Section titles
+            Heading3: 16,                              // Card titles
+            Body: 14,                                  // Standard body text
+            Small: 12,                                 // Helper text
+            Caption: 11                                // Fine print
         },
 
-        // Spacing
+        // Spacing - 12px base grid from Figma
         Spacing: {
-            XS: 4,
-            S: 8,
-            M: 16,
-            L: 24,
-            XL: 32,
-            XXL: 48
+            XS: 4,                                     // Minimal spacing
+            S: 8,                                      // Small elements
+            M: 12,                                     // Base unit (from Figma)
+            L: 16,                                     // Medium spacing
+            XL: 24,                                    // Large spacing
+            XXL: 32,                                   // Section spacing
+            XXXL: 40                                   // Major sections
         },
 
-        // Border Radius
-        BorderRadius: {
+        // Border Radius - Clean Modern Style
+        Radius: {
+            None: 0,
             Small: 4,
-            Medium: 8,
+            Medium: 8,                                 // Standard from Figma
             Large: 12,
             XLarge: 16,
             Round: 999
         },
 
-        // Shadows (simulated with semi-transparent borders)
-        Shadows: {
-            Light: RGBA(0, 0, 0, 0.05),
-            Medium: RGBA(0, 0, 0, 0.1),
-            Heavy: RGBA(0, 0, 0, 0.2)
+        // Effects
+        Effects: {
+            ShadowLight: RGBA(0, 0, 0, 0.04),        // Subtle card shadow
+            ShadowMedium: RGBA(0, 0, 0, 0.08),       // Standard elevation
+            ShadowHeavy: RGBA(0, 0, 0, 0.16),        // High elevation
+            Overlay: RGBA(0, 0, 0, 0.5)              // Modal overlay
         },
 
-        // Animation Durations (in milliseconds)
+        // Animation Durations
         Animation: {
-            Fast: 150,
-            Normal: 300,
-            Slow: 500
+            Fast: 150,                                 // Quick interactions
+            Normal: 250,                               // Standard transitions
+            Slow: 400                                  // Smooth transitions
         }
     }
 )
@@ -944,45 +950,47 @@ Set(
     varTheme,
     {
         Colors: {
-            Primary: RGBA(0, 120, 212, 1),
-            PrimaryDark: RGBA(0, 90, 158, 1),
-            PrimaryLight: RGBA(232, 244, 253, 1),
-            Secondary: RGBA(16, 124, 16, 1),
-            Success: RGBA(16, 124, 16, 1),
-            Warning: RGBA(255, 185, 0, 1),
-            Danger: RGBA(196, 49, 75, 1),
-            Info: RGBA(0, 188, 242, 1),
-            Background: RGBA(250, 250, 250, 1),
+            Primary: RGBA(73, 76, 84, 1),             // Modern blue-gray from Figma
+            PrimaryDark: RGBA(56, 58, 64, 1),
+            PrimaryLight: RGBA(240, 241, 242, 1),
+            Secondary: RGBA(34, 139, 34, 1),
+            Success: RGBA(34, 139, 34, 1),
+            Warning: RGBA(255, 193, 7, 1),
+            Danger: RGBA(220, 53, 69, 1),
+            Info: RGBA(13, 110, 253, 1),
+            Background: RGBA(248, 249, 250, 1),       // Clean background
             Surface: RGBA(255, 255, 255, 1),
-            Border: RGBA(225, 223, 221, 1),
-            Shadow: RGBA(0, 0, 0, 0.1),
-            TextPrimary: RGBA(50, 49, 48, 1),
-            TextSecondary: RGBA(96, 94, 92, 1),
-            TextDisabled: RGBA(200, 198, 196, 1),
+            Border: RGBA(233, 233, 235, 1),           // Clean borders
+            Shadow: RGBA(0, 0, 0, 0.08),
+            TextPrimary: RGBA(24, 24, 24, 1),         // High contrast text
+            TextSecondary: RGBA(69, 71, 77, 1),       // Secondary text
+            TextDisabled: RGBA(156, 163, 175, 1),
             White: RGBA(255, 255, 255, 1),
             Black: RGBA(0, 0, 0, 1)
         },
         Typography: {
             FontFamily: Font.'Segoe UI',
-            H1: 32,
-            H2: 24,
-            H3: 18,
-            H4: 16,
-            Body: 14,
-            Small: 12
+            H1: 30,                                    // Stats numbers
+            H2: 20,                                    // Section headings
+            H3: 16,                                    // Card titles
+            Body: 14,                                  // Body text
+            Small: 12,                                 // Helper text
+            Caption: 11
         },
         Spacing: {
             XS: 4,
             S: 8,
-            M: 16,
-            L: 24,
-            XL: 32,
-            XXL: 48
+            M: 12,                                     // Base from Figma
+            L: 16,
+            XL: 24,
+            XXL: 32,
+            XXXL: 40
         },
         Radius: {
             Small: 4,
-            Medium: 8,
-            Large: 12
+            Medium: 8,                                 // Standard radius
+            Large: 12,
+            XLarge: 16
         }
     }
 );
@@ -1023,7 +1031,7 @@ If(
 **Before (hard-coded):**
 
 ```powerFx
-Fill: RGBA(0, 120, 212, 1)
+Fill: RGBA(73, 76, 84, 1)
 Size: 24
 ```
 
@@ -1073,48 +1081,81 @@ Size: varTheme.Typography.H2
 1. **Define Multiple Themes in OnStart:**
 
 ```powerFx
-// Light Theme (Default)
+// Light Theme (Default) - Based on Figma Design
 Set(
     varLightTheme,
     {
         Colors: {
-            Primary: RGBA(0, 120, 212, 1),
-            Background: RGBA(250, 250, 250, 1),
+            Primary: RGBA(73, 76, 84, 1),             // Modern blue-gray
+            PrimaryDark: RGBA(56, 58, 64, 1),
+            PrimaryLight: RGBA(240, 241, 242, 1),
+            Background: RGBA(248, 249, 250, 1),
             Surface: RGBA(255, 255, 255, 1),
-            TextPrimary: RGBA(50, 49, 48, 1),
-            // ... rest of colors
+            Border: RGBA(233, 233, 235, 1),
+            TextPrimary: RGBA(24, 24, 24, 1),
+            TextSecondary: RGBA(69, 71, 77, 1),
+            Success: RGBA(34, 139, 34, 1),
+            Warning: RGBA(255, 193, 7, 1),
+            Danger: RGBA(220, 53, 69, 1)
         },
-        // ... typography, spacing, etc.
+        Typography: {
+            FontFamily: Font.'Segoe UI',
+            H1: 30, H2: 20, H3: 16, Body: 14, Small: 12
+        },
+        Spacing: { XS: 4, S: 8, M: 12, L: 16, XL: 24, XXL: 32 },
+        Radius: { Small: 4, Medium: 8, Large: 12 }
     }
 );
 
-// Dark Theme
+// Dark Theme - Modern Dark Mode
 Set(
     varDarkTheme,
     {
         Colors: {
-            Primary: RGBA(48, 140, 216, 1),
-            Background: RGBA(32, 31, 30, 1),
-            Surface: RGBA(43, 42, 41, 1),
-            TextPrimary: RGBA(255, 255, 255, 1),
-            TextSecondary: RGBA(200, 198, 196, 1),
-            Border: RGBA(70, 70, 70, 1),
-            // ... rest
+            Primary: RGBA(96, 165, 250, 1),           // Brighter blue for dark mode
+            PrimaryDark: RGBA(59, 130, 246, 1),
+            PrimaryLight: RGBA(30, 41, 59, 1),
+            Background: RGBA(15, 23, 42, 1),          // Dark slate background
+            Surface: RGBA(30, 41, 59, 1),            // Card surface
+            Border: RGBA(51, 65, 85, 1),             // Dark borders
+            TextPrimary: RGBA(248, 250, 252, 1),     // Light text
+            TextSecondary: RGBA(148, 163, 184, 1),   // Muted text
+            Success: RGBA(34, 197, 94, 1),
+            Warning: RGBA(251, 191, 36, 1),
+            Danger: RGBA(239, 68, 68, 1)
         },
-        // ... same structure
+        Typography: {
+            FontFamily: Font.'Segoe UI',
+            H1: 30, H2: 20, H3: 16, Body: 14, Small: 12
+        },
+        Spacing: { XS: 4, S: 8, M: 12, L: 16, XL: 24, XXL: 32 },
+        Radius: { Small: 4, Medium: 8, Large: 12 }
     }
 );
 
-// Corporate Theme (example - different brand colors)
+// Corporate Theme - Professional Brand Colors
 Set(
     varCorporateTheme,
     {
         Colors: {
-            Primary: RGBA(138, 43, 226, 1),  // Purple
-            PrimaryDark: RGBA(103, 32, 168, 1),
-            // ... rest
+            Primary: RGBA(79, 70, 229, 1),            // Professional indigo
+            PrimaryDark: RGBA(67, 56, 202, 1),
+            PrimaryLight: RGBA(238, 242, 255, 1),
+            Background: RGBA(249, 250, 251, 1),
+            Surface: RGBA(255, 255, 255, 1),
+            Border: RGBA(229, 231, 235, 1),
+            TextPrimary: RGBA(17, 24, 39, 1),
+            TextSecondary: RGBA(75, 85, 99, 1),
+            Success: RGBA(16, 185, 129, 1),
+            Warning: RGBA(245, 158, 11, 1),
+            Danger: RGBA(239, 68, 68, 1)
         },
-        // ... same structure
+        Typography: {
+            FontFamily: Font.'Segoe UI',
+            H1: 30, H2: 20, H3: 16, Body: 14, Small: 12
+        },
+        Spacing: { XS: 4, S: 8, M: 12, L: 16, XL: 24, XXL: 32 },
+        Radius: { Small: 4, Medium: 8, Large: 12 }
     }
 );
 
@@ -1199,15 +1240,30 @@ BorderThickness: varButtonStyles.Secondary.BorderThickness
 **A. Status Color Helper:**
 
 ```powerFx
-// Function to get color based on status
+// Modern status color function with clean visual hierarchy
 With(
     {status: ThisItem.Status},
     Switch(
         status,
-        "Approved", varTheme.Colors.Success,
-        "Pending", varTheme.Colors.Warning,
-        "Rejected", varTheme.Colors.Danger,
-        varTheme.Colors.TextSecondary
+        "Approved", varTheme.Colors.Success,       // Green for approved
+        "Pending", varTheme.Colors.Warning,        // Amber for pending
+        "Rejected", varTheme.Colors.Danger,        // Red for rejected
+        "In Progress", varTheme.Colors.Info,       // Blue for in progress
+        "Draft", varTheme.Colors.TextSecondary,    // Gray for draft
+        varTheme.Colors.TextSecondary              // Default gray
+    )
+)
+
+// Status background color (lighter variants)
+With(
+    {status: ThisItem.Status},
+    Switch(
+        status,
+        "Approved", ColorFade(varTheme.Colors.Success, 85%),
+        "Pending", ColorFade(varTheme.Colors.Warning, 85%),
+        "Rejected", ColorFade(varTheme.Colors.Danger, 85%),
+        "In Progress", ColorFade(varTheme.Colors.Info, 85%),
+        ColorFade(varTheme.Colors.TextSecondary, 90%)
     )
 )
 ```

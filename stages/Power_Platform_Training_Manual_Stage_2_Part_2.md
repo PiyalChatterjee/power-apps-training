@@ -1112,17 +1112,17 @@ Width: 100
 Height: 26
 Color: Switch(
     ThisItem.Status,
-    "Completed", RGBA(16, 124, 16, 1),
-    "In Progress", RGBA(0, 120, 212, 1),
-    "Pending", RGBA(255, 185, 0, 1),
-    RGBA(96, 94, 92, 1)
+    "Completed", RGBA(34, 139, 34, 1),        // Success green
+    "In Progress", RGBA(13, 110, 253, 1),       // Info blue
+    "Pending", RGBA(255, 193, 7, 1),           // Warning amber
+    RGBA(69, 71, 77, 1)                        // Secondary text
 )
 Fill: Switch(
     ThisItem.Status,
-    "Completed", ColorFade(RGBA(16, 124, 16, 1), 90%),
-    "In Progress", ColorFade(RGBA(0, 120, 212, 1), 90%),
-    "Pending", ColorFade(RGBA(255, 185, 0, 1), 90%),
-    RGBA(243, 242, 241, 1)
+    "Completed", ColorFade(RGBA(34, 139, 34, 1), 85%),
+    "In Progress", ColorFade(RGBA(13, 110, 253, 1), 85%),
+    "Pending", ColorFade(RGBA(255, 193, 7, 1), 85%),
+    RGBA(248, 249, 250, 1)                     // Light background
 )
 Size: 11
 FontWeight: FontWeight.Semibold
@@ -1395,14 +1395,14 @@ OnSelect:
 recTaskCard.Fill:
     If(
         ThisItem.ID = varSelectedTask.ID,
-        ColorFade(RGBA(0, 120, 212, 1), 95%),  // Selected
+        ColorFade(RGBA(73, 76, 84, 1), 95%),  // Selected
         RGBA(255, 255, 255, 1)  // Normal
     )
 
 recTaskCard.BorderColor:
     If(
         ThisItem.ID = varSelectedTask.ID,
-        RGBA(0, 120, 212, 1),  // Selected border
+        RGBA(73, 76, 84, 1),  // Selected border
         RGBA(225, 223, 221, 1)  // Normal border
     )
 ```

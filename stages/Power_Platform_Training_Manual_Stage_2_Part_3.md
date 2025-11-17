@@ -152,7 +152,7 @@ Width: 24
 Height: 24
 Color: If(
     ThisItem.Screen = varCurrentScreen,
-    RGBA(0, 120, 212, 1),  // Selected - blue
+    RGBA(73, 76, 84, 1),  // Selected - modern blue-gray
     RGBA(255, 255, 255, 1)  // Normal - white
 )
 ```
@@ -188,7 +188,7 @@ X: 0
 Y: 0
 Width: 4
 Height: Parent.TemplateHeight
-Fill: RGBA(0, 120, 212, 1)
+Fill: RGBA(73, 76, 84, 1)  // Modern primary color
 Visible: ThisItem.Screen = varCurrentScreen
 BorderThickness: 0
 ```
@@ -213,7 +213,7 @@ BorderThickness: 0
    - Property type: **Input**
    - Data type: **Color**
    - Description: "Primary theme color for highlights"
-   - Default: `RGBA(0, 120, 212, 1)`
+   - Default: `RGBA(73, 76, 84, 1)` // Modern primary color
 
 **B. Create Output Properties:**
 
@@ -245,7 +245,7 @@ recNavItem.OnSelect:
 
 ```powerFx
 cmpNavigationMenu_1.prmCurrentScreen: varCurrentScreen
-cmpNavigationMenu_1.prmThemeColor: RGBA(0, 120, 212, 1)
+cmpNavigationMenu_1.prmThemeColor: RGBA(73, 76, 84, 1)  // Modern theme
 ```
 
 **C. Handle Navigation:**
@@ -365,7 +365,7 @@ VerticalAlign: VerticalAlign.Middle
 ```powerFx
 // Insert component
 cmpCustomButton_1.prmText: "Submit"
-cmpCustomButton_1.prmFillColor: RGBA(0, 120, 212, 1)
+cmpCustomButton_1.prmFillColor: RGBA(73, 76, 84, 1)  // Modern primary
 cmpCustomButton_1.prmHoverColor: RGBA(0, 90, 158, 1)
 
 // Handle click with Timer
@@ -589,7 +589,7 @@ X: recModalFooter.Width - Self.Width - 20
 Y: (recModalFooter.Height - Self.Height) / 2
 Width: 120
 Height: 40
-Fill: RGBA(0, 120, 212, 1)
+Fill: RGBA(73, 76, 84, 1)  // Modern primary color
 Color: RGBA(255, 255, 255, 1)
 Visible: !IsBlank(cmpModal.prmPrimaryButtonText)
 OnSelect: Set(cmpModal.outPrimaryClicked, true)
@@ -950,7 +950,7 @@ Modern controls automatically pick up app theme:
 Set(
     varModernTheme,
     {
-        PrimaryColor: RGBA(0, 120, 212, 1),
+        PrimaryColor: RGBA(73, 76, 84, 1),      // Modern blue-gray theme
         TextColor: RGBA(50, 49, 48, 1),
         BackgroundColor: RGBA(255, 255, 255, 1)
     }
@@ -979,7 +979,7 @@ btnModern.Style:
 ```powerfx
 txtModern.Style:
     {
-        BorderColor: RGBA(0, 120, 212, 1),
+        BorderColor: RGBA(73, 76, 84, 1),       // Modern border color
         BorderRadius: 4,
         FontSize: 14
     }
@@ -1252,7 +1252,7 @@ Height: 150
 icoEmployees
 Icon: Icon.People
 Size: 40
-Color: RGBA(0, 120, 212, 1)
+Color: RGBA(73, 76, 84, 1)  // Modern primary text color
 
 lblEmployeeCount
 Text: CountRows(Employees)

@@ -259,7 +259,7 @@ Build a comprehensive form with the following controls:
 
 1. **Create a Color Scheme:**
 
-   - Primary: `RGBA(0, 120, 212, 1)` (Blue)
+   - Primary: `RGBA(73, 76, 84, 1)` (Blue-Gray)
    - Secondary: `RGBA(243, 242, 241, 1)` (Light Gray)
    - Text: `RGBA(50, 49, 48, 1)` (Dark Gray)
 
@@ -351,7 +351,7 @@ If(
 | **Default**      | Initial value           | `""` or `Today()`                |
 | **Height/Width** | Size of control         | `60` or `Parent.Width`           |
 | **X/Y**          | Position                | `50` or `lblTitle.Y + 100`       |
-| **Fill**         | Background color        | `RGBA(0, 120, 212, 1)`           |
+| **Fill**         | Background color        | `RGBA(73, 76, 84, 1)`            |
 | **Color**        | Text color              | `RGBA(255, 255, 255, 1)`         |
 | **BorderColor**  | Border color            | `RGBA(200, 200, 200, 1)`         |
 
@@ -1061,7 +1061,7 @@ scrReportsSales      // Sales reports sub-screen
 - **Examples:**
   ```powerFx
   Set(varCurrentUser, User().FullName)
-  Set(varThemePrimaryColor, RGBA(0, 120, 212, 1))
+  Set(varThemePrimaryColor, RGBA(73, 76, 84, 1))
   Set(varIsLoading, false)
   Set(varSelectedEmployeeID, 0)
   Set(varErrorMessage, "")
